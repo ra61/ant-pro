@@ -25,7 +25,7 @@ const links = [
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2018 灵云开放平台
+    Copyright <Icon type="copyright" /> 2018 灵云开放平台社区
   </Fragment>
 );
 
