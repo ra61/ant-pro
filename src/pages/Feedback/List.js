@@ -51,14 +51,21 @@ const progressColumns = [
 class List extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
+
+        let params = {
+            current: 1,
+            pageSize: 5
+        }
+
         dispatch({
             type: 'feedback/fetchList',
+            payload: params
         });
     }
 
     render() {
         const { feedback, loading } = this.props;
-        const { feedbackList } = feedback;
+        const { feedbackList, totalCount } = feedback;
 
         const pageHeaderContent = (
             <div className={styles.pageHeaderTitle}>反馈列表</div>
@@ -69,13 +76,23 @@ class List extends Component {
                 <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
             </div>
         );
+
+        const paginationProps = {
+            showSizeChanger: true,
+            showQuickJumper: true,
+            pageSize: 5,
+            total: totalCount,
+            onChange: (current, pageSize) => {
+                this.handleListChange(current, pageSize)
+            }
+        };
         
         return (
             <PageHeaderWrapper content={pageHeaderContent} extraContent={extraContent}>
                 <Card bordered={false}>
                     <Table
                         style={{ marginBottom: 16 }}
-                        pagination={true}
+                        pagination={paginationProps}
                         loading={loading}
                         dataSource={feedbackList}
                         columns={progressColumns}

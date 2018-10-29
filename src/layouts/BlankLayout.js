@@ -18,6 +18,8 @@ import logo from '../assets/logo.svg';
 import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
+import { getAuthority, setAuthority } from '../utils/authority';
+import router from 'umi/router';
 import { width } from 'window-size';
 
 const { Content } = Layout;
@@ -88,6 +90,15 @@ class BlankLayout extends React.PureComponent {
 
     componentDidMount() {
         const { dispatch } = this.props;
+
+        const flag = getAuthority();
+
+        if(flag[0] != 'user'){
+            dispatch({
+                type: 'login/logout',
+            });
+        }
+
         dispatch({
             type: 'user/fetchCurrent',
         });

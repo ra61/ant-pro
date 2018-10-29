@@ -9,8 +9,8 @@ export default {
   },
 
   effects: {
-    *fetchList(_, { call, put }) {
-      const response = yield call(queryFeedbackList);
+    *fetchList({ payload }, { call, put }) {
+      const response = yield call(queryFeedbackList, payload);
       yield put({
         type: 'show',
         payload: response,

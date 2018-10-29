@@ -141,7 +141,6 @@ export async function queryPanelData() {
 }
 
 export async function queryRankingData(params) {
-  console.log(params)
   return request('/api2/dev/statistics/getAppRanking', {
       method: 'POST',
       body: params,
@@ -158,7 +157,6 @@ export async function queryAbilityStatisticData() {
 
 export async function queryPhpData() {
   let result = request('/api2/dev/statistics/getAppWarningInfo');
-  console.log(result)
   return result;
 }
 
@@ -191,6 +189,16 @@ export async function queryAppList() {
 }
 
 export async function queryAppListPagination(params) {
+
+  // let body = new FormData();
+  // body.append("current", params.current);
+  // body.append("pageSize", params.pageSize);
+
+  // return request('/api2/dev/application/getAppList', {
+  //   method: 'POST',
+  //   body: body
+  // });
+
   console.log(params)
   return request('/api/app/list');
 }
@@ -234,8 +242,18 @@ export async function queryNoticeList(params) {
 }
 
 // 意见反馈
-export async function queryFeedbackList() {
-  return request('/api/feedback/list');
+export async function queryFeedbackList(params) {
+
+  let body = new FormData();
+  body.append("current", params.current);
+  body.append("pageSize", params.pageSize);
+
+  return request('/api2/dev/WorkOrder/getWorkOrderList', {
+    method: 'POST',
+    body: body
+  });
+  
+  // return request('/api/feedback/list');
 }
 
 export async function queryFeedbackDetail() {
